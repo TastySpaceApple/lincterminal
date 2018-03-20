@@ -1,0 +1,16 @@
+1 PERSONAL
+
+2 GAZETTEER
+
+3 SIDE A
+
+4 SIDE B
+
+
+Please make your selection
+Press EXIT to terminate LINC CALL
+
+##1 personal
+##2 gazetteer-1
+##3 side-a-1
+##4 side-b-1

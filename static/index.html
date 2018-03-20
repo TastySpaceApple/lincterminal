@@ -1,0 +1,89 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+  <style type="text/css">
+    body{
+      background: #322d10;
+      padding: .8vw;
+      margin: 0;
+    }
+    .terminal-text{
+      position: absolute;
+      font-family: 'Press Start 2P', monospace;
+      white-space: pre-wrap;
+      left:8%;
+      top: 11%;
+      width: 55%;
+      height: 70%;
+      color:lime;
+      font-size: 1.2vw;
+      line-height: 200%;
+    }
+    .terminal{
+      position: relative;
+      top:50%;
+      margin: auto;
+      margin-top: -24vw;
+      background: url('linc.jpg');
+      width:80%;
+      padding-top: 48%;
+      background-size: cover;
+    }
+    .terminal-numpad{
+      direction: rtl;
+    }
+    .numpad-button{
+      border: none;
+      outline: none;
+      width: 25%;
+      height: 33.2%;
+      background-color: rgba(0,255,0,0.5);
+      display: block;
+      float: right;
+      vertical-align: top;
+      background: none;
+      cursor: pointer;
+      font-family: 'Press Start 2P', monospace;
+      font-weight: bold;
+      font-size: 1.6vw;
+      text-align: left;
+      display: block;
+      padding-bottom: 1.4em;
+      padding-left: 0.6em;
+      word-break: break-word;
+      transition: color .1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .numpad-button[data-key="EXIT"]{
+      height: 66.3%;
+      padding-bottom: 0.5em;
+      /* text-align: center; */
+      padding-left: 0.8em;
+      line-height: 1.1em;
+    }
+    .numpad-button:active{
+      color: lime;
+    }
+    .terminal-numpad{
+      position: absolute;
+      left: 75.3%;
+      top: 21%;
+      width: 21.8%;
+      height: 31.9%;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div class="terminal-text"></div>
+    <div class="terminal-numpad"></div>
+  </div>
+  <script type="text/javascript" src="util.js"></script>
+  <script type="text/javascript" src="code.js"></script>
+  <script type="text/javascript">
+    var terminal = new LincTerminal.Terminal(document.querySelector('.terminal'));
+    terminal.load('index');
+  </script>
+</body>
+</html>
