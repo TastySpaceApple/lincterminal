@@ -73,7 +73,7 @@ LincTerminal.AudioPlayer = (function(){
     }
     AudioPlayer.prototype.load = function(fileName){
       this.audioEl.src = fileName;
-      this.audioEl.play();
+      this.audioEl.setAttribute('autoplay', 'true');
       this.el.innerHTML = CHAR_EMPTY.repeat(NUM_DASHES);
     }
     AudioPlayer.prototype.stop = function(){
