@@ -131,8 +131,10 @@ LincTerminal.Terminal = (function(){
     xhr.send(null);
   }
   Terminal.prototype.numpadClick = function(key){
-	if(!this.beepAudio) this.beepAudio = new Audio('b.wav');
-	this.beepAudio.play();
+	if(!window.madeSound){
+		this.audioEl.load('b.wav');
+		window.madeSound = true;
+	}
 
     if(key in this.actions)
       this.load(this.actions[key])
