@@ -53,7 +53,7 @@ LincTerminal.AudioPlayer = (function(){
     var CHAR_FILL = '>';
     function AudioPlayer(fileName){
       this.events = new util.EventEmitter();
-      this.audioEl = document.createElement('audio');
+      this.audioEl = new Audio();
       this.el = document.createElement('div');
       this.el.innerHTML = CHAR_EMPTY.repeat(NUM_DASHES);
       this.bind();
@@ -72,13 +72,28 @@ LincTerminal.AudioPlayer = (function(){
       this.el.innerHTML = CHAR_FILL.repeat(pos) + CHAR_EMPTY.repeat(NUM_DASHES - pos);
     }
     AudioPlayer.prototype.load = function(fileName){
+	  this.active = true;
       this.audioEl.src = fileName;
       this.audioEl.setAttribute('autoplay', 'true');
+	  this.audioEl.load();
+	  this.audioEl.play();
       this.el.innerHTML = CHAR_EMPTY.repeat(NUM_DASHES);
     }
+	AudioPlayer.prototype.play = function(){
+		this.audioEl.play();
+	}
+	AudioPlayer.prototype.pause = function(){
+		this.audioEl.pause();
+	}
+	AudioPlayer.prototype.playpause = function(){
+		this['p' + (!this.audioEl.paused ? 'ause' : 'lay')]()
+	}
+	
     AudioPlayer.prototype.stop = function(){
       this.audioEl.pause();
       this.audioEl.currentTime = 0;
+	  this.audioEl.src = null;
+	  this.active = false;
     }
     return AudioPlayer;
 })();
@@ -103,6 +118,9 @@ LincTerminal.Terminal = (function(){
       if('include' in data){
         self.audioPlayer.load(data.include[0]);
         self.screen.append(self.audioPlayer.el);
+	    setTimeout(function(){
+		  self.audioPlayer.play();
+	  }, 1000);
       }
       self.screen.print(data.text);
     }
@@ -112,6 +130,8 @@ LincTerminal.Terminal = (function(){
   Terminal.prototype.numpadClick = function(key){
     if(key in this.actions)
       this.load(this.actions[key])
+    if(key == 5 && this.audioPlayer.active)
+	   this.audioPlayer.playpause();
   }
   return Terminal;
 })()
