@@ -65,7 +65,10 @@ LincTerminal.AudioPlayer = (function(){
       var self = this;
       this.audioEl.addEventListener('timeupdate', this.updatePosition.bind(this))
       this.audioEl.addEventListener('ended', function(){
-        self.events.emit('ended');
+		if(!self.silent)
+			self.events.emit('ended');
+		else
+			self.silent = false;
       })
     }
     AudioPlayer.prototype.updatePosition = function(){
@@ -77,7 +80,6 @@ LincTerminal.AudioPlayer = (function(){
 	  this.active = true;
       this.audioEl.src = fileName;
 	  this.silent = false;
-      this.audioEl.setAttribute('autoplay', 'true');
 	  this.audioEl.load();
 	  this.audioEl.play();
       this.el.innerHTML = CHAR_EMPTY.repeat(NUM_DASHES);
@@ -121,9 +123,6 @@ LincTerminal.Terminal = (function(){
       if('include' in data){
         self.audioPlayer.load(data.include[0]);
         self.screen.append(self.audioPlayer.el);
-	    setTimeout(function(){
-		  self.audioPlayer.play();
-	  }, 1000);
       }
       self.screen.print(data.text);
     }
@@ -133,9 +132,9 @@ LincTerminal.Terminal = (function(){
   Terminal.prototype.numpadClick = function(key){
     if(key in this.actions)
       this.load(this.actions[key])
-    if(key == 5 && this.audioPlayer.active)
+    if(key == 5 && this.audioPlayer.active) // hidden key 5 = play/pause
 	   this.audioPlayer.playpause();
-    if(this.audioPlayer.silent)
+    if(this.audioPlayer.silent) // user action is required to play audio
 		this.audioPlayer.play();
   }
   return Terminal;
