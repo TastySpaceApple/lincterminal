@@ -55,6 +55,7 @@ LincTerminal.AudioPlayer = (function(){
       this.events = new util.EventEmitter();
       this.audioEl = new Audio();
 	  this.audioEl.src = 'silence.mp3';
+	  this.silent = true;
       this.el = document.createElement('div');
       this.el.innerHTML = CHAR_EMPTY.repeat(NUM_DASHES);
       this.bind();
@@ -75,6 +76,7 @@ LincTerminal.AudioPlayer = (function(){
     AudioPlayer.prototype.load = function(fileName){
 	  this.active = true;
       this.audioEl.src = fileName;
+	  this.silent = false;
       this.audioEl.setAttribute('autoplay', 'true');
 	  this.audioEl.load();
 	  this.audioEl.play();
@@ -133,6 +135,8 @@ LincTerminal.Terminal = (function(){
       this.load(this.actions[key])
     if(key == 5 && this.audioPlayer.active)
 	   this.audioPlayer.playpause();
+    if(this.audioPlayer.silent)
+		this.audioPlayer.play();
   }
   return Terminal;
 })()
