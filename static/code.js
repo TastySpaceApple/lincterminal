@@ -54,6 +54,7 @@ LincTerminal.AudioPlayer = (function(){
     function AudioPlayer(fileName){
       this.events = new util.EventEmitter();
       this.audioEl = new Audio();
+	  this.audioEl.src = 'silence.mp3';
       this.el = document.createElement('div');
       this.el.innerHTML = CHAR_EMPTY.repeat(NUM_DASHES);
       this.bind();
