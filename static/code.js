@@ -132,7 +132,7 @@ LincTerminal.Terminal = (function(){
   }
   Terminal.prototype.numpadClick = function(key){
 	if(!window.madeSound){
-		this.audioEl.load('b.wav');
+		this.audioPlayer.load('b.wav');
 		window.madeSound = true;
 	}
 
