@@ -64,15 +64,14 @@ LincTerminal.AudioPlayer = (function(){
       var self = this;
       this.audioEl.addEventListener('timeupdate', this.updatePosition.bind(this))
 	  this.audioEl.addEventListener('canplay', this.play.bind(this))
-      this.audioEl.addEventListener('ended', function(){
-		if(!self.silent)
-			self.events.emit('ended');
-		else
-			self.silent = false;
-      })
+      //this.audioEl.addEventListener('ended', function(){ // doesn't work on ios
+	  //	self.events.emit('ended');
+      //})
     }
     AudioPlayer.prototype.updatePosition = function(){
       if(!this.audioEl.duration) return;
+	  if(this.audioEl.duration - this.audioEl.currentTime < 1)
+		  this.events.emit('ended');
       var pos = Math.floor(this.audioEl.currentTime / this.audioEl.duration * NUM_DASHES);
       this.el.innerHTML = CHAR_FILL.repeat(pos) + CHAR_EMPTY.repeat(NUM_DASHES - pos);
     }
