@@ -54,8 +54,7 @@ LincTerminal.AudioPlayer = (function(){
     function AudioPlayer(fileName){
       this.events = new util.EventEmitter();
       this.audioEl = new Audio();
-	  this.audioEl.src = 'silence.mp3';
-	  this.silent = true;
+	  this.active = false;
       this.el = document.createElement('div');
       this.el.innerHTML = CHAR_EMPTY.repeat(NUM_DASHES);
       this.bind();
@@ -77,6 +76,7 @@ LincTerminal.AudioPlayer = (function(){
       this.el.innerHTML = CHAR_FILL.repeat(pos) + CHAR_EMPTY.repeat(NUM_DASHES - pos);
     }
     AudioPlayer.prototype.load = function(fileName){
+	  console.log(fileName);
 	  this.active = true;
       this.audioEl.src = fileName;
 	  this.silent = false;
@@ -108,6 +108,7 @@ LincTerminal.Terminal = (function(){
       this.screen = new LincTerminal.TerminalScreen(el.querySelector('.terminal-text'))
       this.numpad = new LincTerminal.NumPad(el.querySelector('.terminal-numpad'))
       this.audioPlayer = new LincTerminal.AudioPlayer();
+	  
       this.screen.println('LOADING')
       this.numpad.register(this.numpadClick.bind(this));
       this.audioPlayer.events.on('ended', this.numpadClick.bind(this, 9));
@@ -130,12 +131,14 @@ LincTerminal.Terminal = (function(){
     xhr.send(null);
   }
   Terminal.prototype.numpadClick = function(key){
+	this.beepAudio = new Audio('b.wav'); // user action is required to play audio
+	this.beepAudio.play();
+
     if(key in this.actions)
       this.load(this.actions[key])
     if(key == 5 && this.audioPlayer.active) // hidden key 5 = play/pause
 	   this.audioPlayer.playpause();
-    if(this.audioPlayer.silent) // user action is required to play audio
-		this.audioPlayer.play();
+    
   }
   return Terminal;
 })()
