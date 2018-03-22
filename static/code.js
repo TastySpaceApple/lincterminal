@@ -63,6 +63,7 @@ LincTerminal.AudioPlayer = (function(){
       var progressTimer;
       var self = this;
       this.audioEl.addEventListener('timeupdate', this.updatePosition.bind(this))
+	  this.audioEl.addEventListener('canplay', this.play.bind(this))
       this.audioEl.addEventListener('ended', function(){
 		if(!self.silent)
 			self.events.emit('ended');
@@ -79,7 +80,6 @@ LincTerminal.AudioPlayer = (function(){
 	  console.log(fileName);
 	  this.active = true;
       this.audioEl.src = fileName;
-	  this.silent = false;
 	  this.audioEl.load();
 	  this.audioEl.play();
       this.el.innerHTML = CHAR_EMPTY.repeat(NUM_DASHES);
@@ -131,7 +131,7 @@ LincTerminal.Terminal = (function(){
     xhr.send(null);
   }
   Terminal.prototype.numpadClick = function(key){
-	this.beepAudio = new Audio('b.wav'); // user action is required to play audio
+	if(!this.beepAudio) this.beepAudio = new Audio('b.wav');
 	this.beepAudio.play();
 
     if(key in this.actions)
