@@ -76,7 +76,6 @@ LincTerminal.AudioPlayer = (function(){
       this.el.innerHTML = CHAR_FILL.repeat(pos) + CHAR_EMPTY.repeat(NUM_DASHES - pos);
     }
     AudioPlayer.prototype.load = function(fileName){
-	  console.log(fileName);
 	  this.active = true;
       this.audioEl.src = fileName;
 	  this.audioEl.load();
@@ -92,11 +91,11 @@ LincTerminal.AudioPlayer = (function(){
 	AudioPlayer.prototype.playpause = function(){
 		this['p' + (!this.audioEl.paused ? 'ause' : 'lay')]()
 	}
-	
+
     AudioPlayer.prototype.stop = function(){
       this.audioEl.pause();
       this.audioEl.currentTime = 0;
-	  this.audioEl.src = null;
+	  this.audioEl.src = '';
 	  this.active = false;
     }
     return AudioPlayer;
@@ -107,7 +106,7 @@ LincTerminal.Terminal = (function(){
       this.screen = new LincTerminal.TerminalScreen(el.querySelector('.terminal-text'))
       this.numpad = new LincTerminal.NumPad(el.querySelector('.terminal-numpad'))
       this.audioPlayer = new LincTerminal.AudioPlayer();
-	  
+
       this.screen.println('LOADING')
       this.numpad.register(this.numpadClick.bind(this));
       this.audioPlayer.events.on('ended', this.numpadClick.bind(this, 9));
@@ -139,7 +138,7 @@ LincTerminal.Terminal = (function(){
       this.load(this.actions[key])
     if(key == 5 && this.audioPlayer.active) // hidden key 5 = play/pause
 	   this.audioPlayer.playpause();
-    
+
   }
   return Terminal;
 })()
