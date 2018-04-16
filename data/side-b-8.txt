@@ -1,9 +1,9 @@
-@@ /songs/Ryskinder - Zar Lo Yavin Zot.mp3
-Song: Zar Lo Yavin Zot
-Album: Kosmi
-Artist: Ryskinder
+@@ /songs/THE ORAL CIGARETTES - Hey Kids.mp3
+Song: Hey Kids!
+Artist: THE ORAL CIGARETTES
 
-A stranger shan't understand
+
+
 
 
 
@@ -14,4 +14,4 @@ A stranger shan't understand
 0 MAIN MENU
 
 ##0 index
-##9 end-of-stream
+##9 side-b-9

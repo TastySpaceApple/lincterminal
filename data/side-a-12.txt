@@ -1,7 +1,7 @@
-@@ /songs/of Montreal - Disconnect the Dots.mp3
-Song: Disconnect the Dots
-Album: Satanic Panic in the Attic
-Artist: of Montreal
+@@ /songs/Slavoj Zizek.mp3
+Philosopher: Slavoj Žižek
+
+
 
 
 
@@ -14,4 +14,4 @@ Artist: of Montreal
 0 MAIN MENU
 
 ##0 index
-##9 side-a-13
+##9 end-of-stream
